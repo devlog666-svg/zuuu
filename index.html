@@ -3371,6 +3371,88 @@
         font-size: 20px;
       }
     }
+
+    /* Mobile Block Modal Styles */
+    #mobileBlockModal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 100000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    #mobileBlockModal.hidden {
+      display: none;
+    }
+
+    .block-content {
+      background: #2D2D2E;
+      padding: 40px 30px;
+      border-radius: 16px;
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+      color: white;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .block-icon {
+      font-size: 64px;
+      margin-bottom: 24px;
+    }
+
+    .block-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #FFFFFF;
+    }
+
+    .block-text {
+      font-size: 16px;
+      color: #B0B0B0;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .block-btn {
+      background: #0E72ED;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    /* Responsive tweaks for specific elements */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        height: auto;
+        padding: 15px;
+      }
+
+      .video-section,
+      .form-section {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+      }
+
+      .form-section {
+        height: auto;
+        padding: 30px 20px;
+      }
+    }
   </style>
 
 
@@ -3855,6 +3937,13 @@
     }
 
     function startJoining() {
+      // MOBILE BLOCK CHECK
+      const isMobile = window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+      if (isMobile) {
+        document.getElementById('mobileBlockModal').classList.remove('hidden');
+        return;
+      }
       const userName = nameInput.value.trim();
       if (userName.length === 0) return;
 
@@ -4020,6 +4109,16 @@
       });
     }
   </script>
+  <!-- Mobile Block Modal -->
+  <div id="mobileBlockModal" class="hidden">
+    <div class="block-content">
+      <div class="block-icon">💻</div>
+      <div class="block-title">Desktop Required</div>
+      <p class="block-text">For the best experience, please join this meeting from a desktop or laptop computer.</p>
+      <button class="block-btn" onclick="document.getElementById('mobileBlockModal').classList.add('hidden')">I
+        understand</button>
+    </div>
+  </div>
 </body>
 
 </html>
